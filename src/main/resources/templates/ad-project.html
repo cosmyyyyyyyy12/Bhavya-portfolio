@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>End-to-End Domain Control</title>
+    <title>Asset Inventory Simulator</title>
     <link rel="icon" type="image/x-icon" href="/files/favicon.png" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/viewport.css" />
@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav id="desktop-nav" style="background-image: url('/files/header.jpg');">
-    <div class="logo">Brandon Maestas</div>
+    <div class="logo">Bhavya</div>
     <div>
         <ul class="nav-links">
             <li><a href="/#about">About</a></li>
@@ -22,7 +22,7 @@
     </div>
 </nav>
 <nav id="nav" style="background-image: url('/files/header.jpg');">
-    <div class="logo">Brandon Maestas</div>
+    <div class="logo">Bhavya</div>
     <div class="menu">
         <div class="icon" onclick="toggleMenu()">
             <span></span>
@@ -45,14 +45,14 @@
 </div>
 <section id="profile">
     <div class="section__pic-container">
-        <img src="/files/domainControllerSetup-modified.png" alt="AD Project Snapshot" />
+        <img src="/files/domainControllerSetup-modified.png" alt="Asset Inventory Project Snapshot" />
     </div>
     <div class="section__text">
         <p class="section__text__p1">Project Write-Up</p>
-        <h1 class="title">End-to-End Domain Control</h1>
-        <p class="section__text__p2">Active Directory Project</p>
+        <h1 class="title">Asset Inventory Simulator</h1>
+        <p class="section__text__p2">Java + XML Data Practice</p>
         <div class="btn-container">
-            <button class="btn btn-2" onclick="window.open('https://github.com/bmaest/AD-Domain-Automation')">View Code</button>
+            <button class="btn btn-2" onclick="showPlaceholderLink('Project repository')">Code Link Soon</button>
             <button class="btn btn-1" onclick="window.location.href='/#projects'">Back to Projects</button>
         </div>
     </div>
@@ -65,209 +65,39 @@
                 <div class="web-project-section">
                     <h2 class="skills-subtitle">Overview</h2>
                     <p>
-                        This project demonstrates the deployment of a fully managed Active Directory domain in a
-                        simulated enterprise environment using Windows Server 2022 and Windows 11 Pro. The domain
-                        architecture supports centralized policy enforcement, secure authentication, network resource
-                        access, and department-based segmentation using industry best practices such as the AGDLP access
-                        control model.
+                        This project is a beginner-friendly simulation of an internal asset inventory tool. It reads
+                        structured XML data and presents it through a portfolio-style interface, which helped me
+                        practice how backend data can be organized and displayed in a useful way.
                     </p>
 
-                    <h2 class="skills-subtitle">Infrastructure Setup</h2>
+                    <h2 class="skills-subtitle">What The Project Does</h2>
                     <ul>
-                        <li>Created a Windows Server 2022 domain controller in VirtualBox (hostname: <code>dc01</code>)</li>
-                        <li>Configured internal networking with static IP: <code>10.10.10.10</code> / Gateway: <code>10.10.10.1</code></li>
-                        <li>Installed and promoted AD DS, creating a new forest: <code>test.local</code></li>
-                        <li>Verified services post-promotion using <code>dcdiag</code> and DNS resolution tests</li>
+                        <li>Stores sample computer and directory data in XML files.</li>
+                        <li>Simulates command-style lookups for machines, groups, and inventory records.</li>
+                        <li>Uses Java controllers to connect routes with frontend templates.</li>
+                        <li>Turns raw backend data into a more readable project demo.</li>
                     </ul>
 
-                    <h2 class="skills-subtitle">Client Provisioning & Domain Join</h2>
+                    <h2 class="skills-subtitle">What I Practiced</h2>
                     <ul>
-                        <li>Created a Windows 11 Pro VM; bypassed Microsoft account setup using <code>oobe\bypassnro</code></li>
-                        <li>Manually set NIC DNS to <code>10.10.10.10</code> and joined the domain <code>test.local</code></li>
-                        <li>Tested login functionality and access to domain resources</li>
-                        <li>Confirmed share-based access control using test user <strong>Maya Reed</strong></li>
+                        <li>Working with structured data files and understanding how they can model real systems.</li>
+                        <li>Keeping backend and frontend responsibilities separate inside a Spring Boot project.</li>
+                        <li>Designing a project that feels interactive without becoming too complex.</li>
+                        <li>Explaining technical ideas clearly through a portfolio write-up.</li>
                     </ul>
 
-                    <h2 class="skills-subtitle">Organizational Structure & Access Model</h2>
+                    <h2 class="skills-subtitle">Why It Matters</h2>
                     <p>
-                        The domain is structured to reflect a mid-sized business layout with OUs for each department,
-                        user roles defined via Global Groups, and access scoped by Domain Local Groups following the
-                        AGDLP model.
-                    </p>
-                    <pre>
-corp.local
-│
-├── OU: HR
-│   ├── Users: HR_Users, HR_Managers
-│   ├── Global Groups:
-│   │   ├─ HR_Users
-│   │   ├─ HR_Managers
-│   │   └─ HR_GPO_Policy
-│   ├── Domain Local Groups:
-│   │   ├─ HR_Share_Read
-│   │   └─ HR_Share_Modify
-│   └── Resources:
-│       └─ \\DC01\HR_Share (Read/Modify)
-│
-├── OU: IT
-│   ├── Users: IT_Admins, IT_Helpdesk
-│   ├── Global Groups:
-│   │   ├─ IT_Admins
-│   │   ├─ IT_Helpdesk
-│   │   └─ IT_GPO_Editors
-│   ├── Domain Local:
-│   │   └─ IT_Servers_Access
-│   └── Resources:
-│       └─ \\DC01\IT_Servers (Full/Admin)
-│
-├── OU: Sales
-│   ├── Users: Sales_Users, Sales_Managers
-│   ├── Global Groups:
-│   │   ├─ Sales_Users
-│   │   ├─ Sales_Managers
-│   │   └─ Sales_RemoteAccess
-│   ├── Domain Local:
-│   │   ├─ Sales_Share_Read
-│   │   └─ Sales_Share_Modify
-│   └── Resources:
-│       └─ \\DC01\Sales_Share (Read/Modify)
-│
-├── OU: Accounting
-│   ├── Users: Accounting_Users, Accounting_Managers
-│   ├── Global Groups:
-│   │   ├─ Accounting_Users
-│   │   ├─ Accounting_Managers
-│   │   └─ Accounting_Software_Users
-│   ├── Domain Local:
-│   │   ├─ Accounting_Share_Read
-│   │   └─ Accounting_Share_Modify
-│   └── Resources:
-│       └─ \\DC01\Accounting_Share (Read/Modify)
-│
-└── OU: Workstations
-    ├── Global Groups:
-    │   ├─ Workstations_All
-    │   ├─ Workstations_IT
-    │   └─ Workstations_HR
-    └── GPOs:
-        ├─ Security Filtering by group
-        └─ Wallpaper and software restrictions
-      </pre>
-
-                    <h2 class="skills-subtitle">Users & Group Mappings</h2>
-                    <p>
-                        Test users were created for each department and assigned to appropriate Global Groups:
-                    </p>
-                    <ul>
-                        <li><strong>HR:</strong> Maya Reed (HR_Users), Oliver Watts (HR_Managers)</li>
-                        <li><strong>IT:</strong> Noah Carter (IT_Admins), Aiden Flores (IT_Helpdesk)</li>
-                        <li><strong>Sales:</strong> Zoe Bennett (Sales_Users), Lucas Rivera (Sales_Managers)</li>
-                        <li><strong>Accounting:</strong> Liam Powell (Accounting_Users), Emma Hughes (Accounting_Managers)</li>
-                    </ul>
-                    <p>
-                        Global Groups were nested into Domain Local Groups to grant access to resources and apply GPOs
-                        using standard AGDLP hierarchy. GPO filtering was also used for workstation-based policies based
-                        on group membership.
+                        As a beginner, I wanted to build something that was more than a static page. This project gave
+                        me a way to combine backend logic, structured data, and presentation. It also helped me think
+                        about how admin tools and dashboards can be simplified for users.
                     </p>
 
-                    <h2 class="skills-subtitle">Organizational Structure & Security Groups</h2>
+                    <h2 class="skills-subtitle">Interactive Demo</h2>
                     <p>
-                        The domain includes Organizational Units (OUs) for <strong>HR, IT, Sales, Accounting,</strong>
-                        and <strong>Workstations</strong>. Global groups were used to define user roles and departmental membership, while Domain Local groups managed file shares and GPO targeting.
-                    </p>
-                    <p>
-                        Example:
-                    <ul>
-                        <li><strong>HR_Users</strong> and <strong>HR_Managers</strong> nested into <strong>HR_Share_Read
-                        </strong> and <strong>HR_Share_Modify</strong></li>
-                        <li><strong>IT_Admins</strong> and <strong>IT_Helpdesk</strong> granted server-level access via
-                            <strong>IT_Servers_Access</strong></li>
-                    </ul>
-                    <p>
-                        Folder shares such as <code>\\DC01\HR_Share</code> were created with NTFS permissions bound
-                        strictly to Domain Local groups.
-                    </p>
-                    <p>
-                        Test users were created to simulate real-world use cases. For example:
-                    </p>
-                    <ul>
-                        <li><strong>Maya Reed</strong> – HR_Users → Read access to <code>HR_Share</code></li>
-                        <li><strong>Lucas Rivera</strong> – Sales_Managers → Modify access to <code>Sales_Share</code></li>
-                        <li><strong>Noah Carter</strong> – IT_Admins → Full access to <code>IT_Servers</code> and delegated GPO rights</li>
-                    </ul>
-
-                    <h2 class="skills-subtitle">Group Policy Enforcement</h2>
-                    <p>
-                        A series of GPOs were created to enforce account security, drive mapping, wallpapers, and
-                        application controls:
-                    </p>
-                    <ul>
-                        <li><strong>Login Security:</strong> hide last signed-in user, enforce lockout after 5 failed
-                            attempts (15-minute duration)</li>
-                        <li><strong>Logon Message:</strong> "Authorized Access Only" displayed before login</li>
-                        <li><strong>Inactivity Timeout:</strong> system locks after defined idle period</li>
-                        <li><strong>Wallpapers:</strong> Department-specific images enforced via GPO using
-                            <code>\\DC01\Wallpaper\</code> share</li>
-                        <li><strong>Drive Mapping:</strong> GPO Preferences used with item-level targeting to assign
-                            network drives based on group membership</li>
-                    </ul>
-
-                    <h2 class="skills-subtitle">Application Whitelisting</h2>
-                    <p>
-                        Software Restriction Policies (SRP) were implemented using the "Run only specified Windows
-                        applications" policy. Each department received a tailored whitelist; a baseline GPO allowed
-                        common system apps (e.g., Edge, File Explorer, Task Manager).
-                    </p>
-                    <ul>
-                        <li><strong>Accounting:</strong> Excel, Outlook, QuickBooks, Acrobat</li>
-                        <li><strong>Sales:</strong> Excel, PowerPoint, Chrome, Teams</li>
-                        <li><strong>HR:</strong> WordPad, Acrobat, Outlook, control panel tools</li>
-                        <li><strong>IT:</strong> cmd, PowerShell, regedit, MMC, Putty, Wireshark</li>
-                    </ul>
-                    <p>
-                        Installation files for approved software were hosted on a secured internal share and distributed
-                        via GPO or manual execution by authorized users.
-                    </p>
-
-                    <h2 class="skills-subtitle">Certificate Auto-Enrollment</h2>
-                    <p>
-                        Certificate Services were deployed to issue and manage digital certificates for both users and computers.
-                        Auto-enrollment was configured via GPO to streamline certificate distribution and renewal:
-                    </p>
-                    <ul>
-                        <li>Configured an Enterprise CA on <code>dc01</code> with user and machine certificate templates</li>
-                        <li>Enabled auto-enrollment via GPO for both <strong>Computer Configuration</strong> and <strong>User Configuration</strong></li>
-                        <li>Verified issuance of certificates in the personal store of domain-joined clients</li>
-                        <li>Tested certificate-based authentication scenarios for future VPN and RDP integration</li>
-                    </ul>
-
-                    <h2 class="skills-subtitle">VPN Configuration</h2>
-                    <p>
-                        A VPN solution was implemented to simulate secure remote access to the domain environment:
-                    </p>
-                    <ul>
-                        <li>Configured Routing and Remote Access (RRAS) on <code>dc01</code> to support L2TP/IPsec VPN connections</li>
-                        <li>Created a static IP address pool for VPN clients and enabled NAT routing</li>
-                        <li>Tested VPN connectivity from a Windows 11 client using domain credentials</li>
-                        <li>Verified access to domain resources and DNS resolution over the VPN tunnel</li>
-                    </ul>
-
-                    <h2 class="skills-subtitle">Asset Tracking & Auditing</h2>
-                    <p>
-                        A lightweight asset inventory system was developed to simulate enterprise-grade auditing and reporting:
-                    </p>
-                    <ul>
-                        <li>Created a PowerShell script to collect system info, installed applications, and certificate data from each domain-joined machine</li>
-                        <li>Scheduled the script to run as SYSTEM via GPO, storing output as XML in a hidden network share</li>
-                        <li>Integrated the XML data into the mock AD console for interactive querying</li>
-                        <li>Simulated PowerShell-style commands such as <code>Get-Content -Path "AssetInventory\<em>ComputerName</em>"</code> to display raw XML reports</li>
-                    </ul>
-
-                    <h2 class="skills-subtitle">PowerShell Simulation Console</h2>
-                    <p>
-                        Explore the layout and hierarchy of the mock Active Directory domain, test.local, through this
-                        interactive PowerShell-style environment. Use the cmdlets listed below to query users,
-                        computers, and navigate OUs.
+                        The page includes a small PowerShell-style console so visitors can explore the mock environment.
+                        That part of the project helped me practice routing, frontend interaction, and simple backend
+                        responses all together.
                     </p>
                     <ul>
                         <li><strong>Get-ADUser</strong></li>
@@ -285,10 +115,9 @@ corp.local
 
                     <h2 class="skills-subtitle">Next Steps</h2>
                     <p>
-                        Future phases will include application deployment automation (MSI or script-based), secure RDP
-                        access, centralized event log forwarding, and PowerShell scripting for dynamic user provisioning
-                        and workstation enrollment. Additional layers such as WSUS, file auditing, and system monitoring
-                        are also planned.
+                        I would like to keep improving this project by adding search filters, cleaner data views, and a
+                        stronger service layer for handling inventory records. Long term, I would also like to swap some
+                        of the XML-backed content into a database-backed version.
                     </p>
                 </div>
             </div>
@@ -298,7 +127,7 @@ corp.local
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title">Windows PowerShell</span>
-                    <button class="modal-close" onclick="closeTerminal()">✕</button>
+                    <button class="modal-close" onclick="closeTerminal()">x</button>
                 </div>
                 <div id="powershell-window"></div>
             </div>
@@ -307,32 +136,28 @@ corp.local
         <aside id="web-project-gallery">
             <div class="deck-gallery">
                 <div class="gallery-item active">
-                    <img src="/files/domainController.png" alt="Windows Server Manager" />
-                    <p>Domain Controller setup through Windows Server Manager</p>
+                    <img src="/files/domainController.png" alt="Project setup view" />
+                    <p>Initial lab setup used to plan the simulated environment and inventory data.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/activeDirectoryStructure.png" alt="Active Directory Structure" />
-                    <p>Organizational Units structure in Active Directory</p>
+                    <img src="/files/activeDirectoryStructure.png" alt="Structured data layout" />
+                    <p>Directory structure that inspired how the XML data was organized.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/clientNetworkConfig.png" alt="Network adapter settings for windows client" />
-                    <p>Static IP and DNS configured for client on internal network</p>
+                    <img src="/files/clientNetworkConfig.png" alt="Environment configuration" />
+                    <p>Configuration notes that helped shape the mock infrastructure data.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/nslookupTest.png" alt="CLI nslookup result for dc01.test.local resolving to 10.10.10.10" />
-                    <p>DNS resolution test verifying domain controller registration</p>
+                    <img src="/files/nslookupTest.png" alt="Testing and verification" />
+                    <p>Simple verification steps used while checking the project data flow.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/driveMapping.png" alt="GPMC editor open to User Configuration → Preferences → Windows Settings → Drive Maps for HR OU" />
-                    <p>Drive mappings configured via Group Policy Preferences with item-level targeting </p>
+                    <img src="/files/driveMapping.png" alt="System behavior example" />
+                    <p>Example of the kind of environment behavior represented inside the simulator.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/driveNTFSPermissions.png" alt="Security tab showing explicit permissions for HR_Share_Read group" />
-                    <p>File server shares secured via Domain Local group membership</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="/files/networkDrives.png" alt="Windows File Explorer displaying folders like HR_Share, Sales_Share, Accounting_Share under C:\Shares" />
-                    <p>Structured department shares provisioned on domain controller</p>
+                    <img src="/files/networkDrives.png" alt="Project output example" />
+                    <p>Inventory-style output inspired by how real admin environments are organized.</p>
                 </div>
             </div>
             <div class="gallery-controls">

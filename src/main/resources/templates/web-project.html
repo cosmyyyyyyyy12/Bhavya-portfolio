@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Stack Web Deployment</title>
+    <title>Student Record API</title>
     <link rel="icon" type="image/x-icon" href="/files/favicon.png" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/viewport.css" />
@@ -12,7 +12,7 @@
 </head>
 <body>
 <nav id="desktop-nav" style="background-image: url('/files/header.jpg');">
-    <div class="logo">Brandon Maestas</div>
+    <div class="logo">Bhavya</div>
     <div>
         <ul class="nav-links">
             <li><a href="/#about">About</a></li>
@@ -23,7 +23,7 @@
     </div>
 </nav>
 <nav id="nav" style="background-image: url('/files/header.jpg');">
-    <div class="logo">Brandon Maestas</div>
+    <div class="logo">Bhavya</div>
     <div class="menu">
         <div class="icon" onclick="toggleMenu()">
             <span></span>
@@ -46,14 +46,14 @@
 </div>
 <section id="profile">
     <div class="section__pic-container">
-        <img src="/files/springBootProject-modified.png" alt="AD Project Snapshot" />
+        <img src="/files/springBootProject-modified.png" alt="Student Record API Project Snapshot" />
     </div>
     <div class="section__text">
         <p class="section__text__p1">Project Write-Up</p>
-        <h1 class="title">Full Stack Web Deployment</h1>
-        <p class="section__text__p2">Spring Boot Project</p>
+        <h1 class="title">Student Record API</h1>
+        <p class="section__text__p2">Java + Spring Boot</p>
         <div class="btn-container">
-            <button class="btn btn-2" onclick="window.open('https://github.com/bmaest/Web-Portfolio')">View Code</button>
+            <button class="btn btn-2" onclick="showPlaceholderLink('Project repository')">Code Link Soon</button>
             <button class="btn btn-1" onclick="window.location.href='/#projects'">Back to Projects</button>
         </div>
     </div>
@@ -66,214 +66,47 @@
                 <div class="web-project-section">
                     <h2 class="skills-subtitle">Overview</h2>
                     <p>
-                        This project serves as a comprehensive demonstration of full-stack web development and deployment
-                        using Spring Boot. Initially conceived as a personal portfolio, it evolved into an opportunity
-                        to implement a real-world infrastructure workflow—including templating, reverse proxying, server
-                        provisioning, version control, and DNS failover. The architecture is designed to reflect modern
-                        web standards, with an emphasis on security, redundancy, and maintainability.
+                        This project is a beginner backend application built to practice the flow of a typical CRUD API.
+                        The idea is simple: store student records, return them through REST endpoints, and organize the
+                        code clearly enough that future features can be added without rewriting everything.
                     </p>
 
-                    <h2 class="skills-subtitle">Development & Framework</h2>
+                    <h2 class="skills-subtitle">What I Built</h2>
                     <ul>
-                        <li>Built using <strong>Spring Boot</strong> and Java inside <strong>IntelliJ IDEA</strong></li>
-                        <li>Used <code>Thymeleaf</code> templating engine to serve dynamic HTML views, allowing
-                            server-side logic to integrate cleanly into the frontend</li>
-                        <li>Structured routing with controller classes for homepage and individual project write-ups,
-                            following MVC principles</li>
-                        <li>Integrated scoped JavaScript for dark mode toggling and responsive mobile navigation,
-                            enhancing accessibility and interaction</li>
+                        <li>Created endpoints to add, read, update, and delete student records.</li>
+                        <li>Separated the project into controller, service, and model layers.</li>
+                        <li>Used JSON request and response bodies to handle API data.</li>
+                        <li>Tested endpoints locally to understand how backend requests are processed.</li>
                     </ul>
 
-                    <h2 class="skills-subtitle">Repository & Version Control</h2>
-                    <p>
-                        The project followed a clean Maven directory structure, allowing for straightforward dependency
-                        management and builds. All changes were versioned in Git and hosted on GitHub. A feature-branch
-                        workflow was followed, enabling isolated testing before merge and easier debugging through
-                        descriptive commit messages.
-                    </p>
-
-                    <h2 class="skills-subtitle">Linux Server Setup</h2>
+                    <h2 class="skills-subtitle">Backend Concepts Practiced</h2>
                     <ul>
-                        <li>Provisioned a free-tier <strong>Ubuntu 22.04 VM on Oracle Cloud</strong> running on ARM-based
-                            Ampere processors</li>
-                        <li>Applied security hardening using SSH keys, UFW firewall rules, role-based user separation,
-                            and routine update automation</li>
-                        <li>Installed the following tooling:
-                            <ul>
-                                <li>Java 23.0.2 (for Spring Boot application runtime)</li>
-                                <li>Maven (for clean, repeatable builds)</li>
-                                <li>Git (for versioned deployments via GitHub)</li>
-                                <li>NGINX (to serve as a reverse proxy and SSL terminator)</li>
-                            </ul>
-                        </li>
+                        <li>Request mapping with Spring Boot annotations such as <code>@GetMapping</code> and <code>@PostMapping</code>.</li>
+                        <li>Basic validation and error handling for missing or incorrect input.</li>
+                        <li>Using Java classes to represent application data in a structured way.</li>
+                        <li>Keeping methods small and readable to make debugging easier.</li>
                     </ul>
 
-                    <h2 class="skills-subtitle">Reverse Proxy Configuration (NGINX)</h2>
+                    <h2 class="skills-subtitle">Why I Made It</h2>
                     <p>
-                        NGINX was configured to forward all external traffic on port <code>80</code> to the Spring Boot
-                        service on <code>localhost:8080</code>. Proxy headers were added to pass the original host and
-                        IP to the backend. This setup centralizes traffic management and abstracts internal port mapping
-                        from users.
+                        I wanted a project that felt practical but still manageable as a beginner. A student record API
+                        helped me learn how applications receive data, process it, and return useful responses. It also
+                        gave me a place to practice project structure instead of writing everything in one file.
                     </p>
 
-                    <div class="code-wrapper">
-                        <pre><code># ===========================================
-# Original NGINX configuration for initial deployment
-# Acts as a reverse proxy to forward port 80 traffic to the local web application on port 8080
-# Provides basic access routing before SSL and domain-level handling were added
-# ===========================================
-server {
-    listen 80;
-    server_name brandonmaestas.com;
-
-    location / {
-        proxy_pass http://localhost:8080/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-                        </code></pre>
-                    </div>
-
-                    <h2 class="skills-subtitle">TLS & HTTPS</h2>
-                    <p>
-                        To secure web traffic and enhance trust with encrypted communication, the following steps were
-                        implemented as part of the TLS and HTTPS setup.
-                    </p>
+                    <h2 class="skills-subtitle">What I Learned</h2>
                     <ul>
-                        <li>Used <strong>Certbot</strong> to generate and install a Let's Encrypt TLS certificate</li>
-                        <li>Updated NGINX configuration to redirect port 80 traffic to 443 and serve encrypted HTTPS
-                            connections</li>
-                        <li>Scheduled <code>certbot renew</code> via a cron job to ensure auto-renewal and long-term
-                            certificate validity</li>
-                    </ul>
-                    <p>
-                        After obtaining a TLS certificate, the following NGINX configuration was applied to serve
-                        resources securely over HTTPS and guide clients toward encrypted connections.
-                    </p>
-                    <div class="code-wrapper">
-                        <pre><code># ===========================================
-# Default server block for IP address access
-# Used primarily for AWS health checks in active/passive failover
-# Ensures that even requests without a Host header receive a valid response
-# ===========================================
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name "";  # Catch-all for requests without a valid Host header
-
-    # Proxy root to your local backend service
-    location / {
-        proxy_pass http://localhost:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-    }
-
-    # Dedicated health check endpoint for uptime monitoring
-    location /actuator/health {
-        proxy_pass http://localhost:8080/actuator/health;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-    }
-}
-
-# ===========================================
-# Redirect all HTTP traffic to HTTPS
-# Reinforces secure communication by default
-# ===========================================
-server {
-    listen 80;
-    listen [::]:80;
-    server_name brandonmaestas.com www.brandonmaestas.com;
-
-    # Force redirect to HTTPS to prevent plaintext traffic
-    return 301 https://$host$request_uri;
-}
-
-# ===========================================
-# Redirect non-www HTTPS requests to www
-# Promotes domain consistency and SEO best practice
-# ===========================================
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    server_name brandonmaestas.com;
-
-    # SSL certificate paths managed by Let's Encrypt via Certbot
-    ssl_certificate /etc/letsencrypt/live/www.brandonmaestas.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.brandonmaestas.com/privkey.pem;
-    include /etc/nginx/snippets/ssl-params.conf;
-
-    # Redirect all traffic to the canonical www subdomain
-    return 301 https://www.brandonmaestas.com$request_uri;
-}
-
-# ===========================================
-# Main HTTPS server block for primary domain
-# Handles user traffic, static assets, and health probes
-# ===========================================
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    server_name www.brandonmaestas.com;
-
-    ssl_certificate /etc/letsencrypt/live/www.brandonmaestas.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.brandonmaestas.com/privkey.pem;
-    include /etc/nginx/snippets/ssl-params.conf;
-
-    # Forward root requests to backend application
-    location / {
-        proxy_pass http://localhost:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-    }
-
-    # Expose actuator health endpoint for external monitoring tools
-    location /actuator/health {
-        proxy_pass http://localhost:8080/actuator/health;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-    }
-
-    # Serve static assets directly from build output for performance
-    # Helps offload content from the backend and improve response times
-    location ~* \.(jpg|jpeg|png|gif|css|js|pdf|svg)$ {
-        root /home/ubuntu/running/Web-Portfolio/src/main/resources/static;
-        expires 1d;  # Enable caching for improved load speed
-    }
-}
-                        </code></pre>
-                    </div>
-
-                    <h2 class="skills-subtitle">Continuous Deployment with GitHub Actions</h2>
-                    <p>
-                        A GitHub Actions YAML workflow was created to deploy changes automatically on push to the main
-                        branch. The script initiates an SSH session to the production server, pulls the latest commit,
-                        rebuilds the Spring Boot project with Maven, and restarts the server daemon using
-                        <code>systemctl</code>. SSH keys and environment variables are securely stored as GitHub
-                        repository secrets.
-                    </p>
-                    <p>
-                        You can view the full YAML deployment workflow
-                        <a href="https://github.com/bmaest/Web-Portfolio/blob/main/.github/workflows/webUpdate.yml" target="_blank">here on GitHub</a>.
-                    </p>
-
-                    <h2 class="skills-subtitle">Redundancy & Failover</h2>
-                    <ul>
-                        <li>Mirrored deployment on a Google Cloud VM with identical OS, tooling, and SSL configuration</li>
-                        <li>Domain routed through <strong>Amazon Route 53</strong>, which manages DNS-level failover routing</li>
-                        <li>Configured two <code>A</code> records with primary/secondary routing policy and health-based failover</li>
-                        <li>Exposed <code>/health</code> endpoints from Spring Boot and linked them to Route 53 health checks</li>
-                        <li>Email notifications enabled for failover events via AWS alert configuration</li>
+                        <li>Backend development becomes much easier when each class has one clear responsibility.</li>
+                        <li>Even small APIs benefit from clean naming and predictable endpoint behavior.</li>
+                        <li>Testing requests manually teaches a lot about edge cases and response formatting.</li>
+                        <li>Good folder structure makes future features feel less intimidating.</li>
                     </ul>
 
-                    <h2 class="skills-subtitle">Conclusion</h2>
+                    <h2 class="skills-subtitle">Next Steps</h2>
                     <p>
-                        The final deliverable is a redundant, secure, self-healing portfolio site that integrates best
-                        practices from both web development and infrastructure management. This very website—the one
-                        you're currently viewing—was built and deployed using the architecture detailed above. With
-                        platform-agnostic failover, automated deployments, and responsive theming, it demonstrates
-                        full-stack fluency and operational maturity.
+                        The next version of this project would connect to a real database, add stronger validation, and
+                        include tests for the service and controller layers. I would also like to add search and filter
+                        features so the API feels closer to a real-world backend application.
                     </p>
                 </div>
             </div>
@@ -281,46 +114,28 @@ server {
         <aside id="web-project-gallery">
             <div class="deck-gallery">
                 <div class="gallery-item active">
-                    <img src="/files/initialSite.png" alt="HTML Code Displayed in a Browser" />
-                    <p>Initial static HTML view before styling</p>
+                    <img src="/files/initialSite.png" alt="Project planning stage" />
+                    <p>Early project structure while planning routes and model classes.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/styledSite.png" alt="Styled Website Displayed in a Browser" />
-                    <p>Styled layout after applying CSS for structure and theming</p>
+                    <img src="/files/styledSite.png" alt="Spring Boot app in progress" />
+                    <p>Local development version used while testing backend flow and UI basics.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/oracleFreeTier.png" alt="Oracle Free Tier Computer Instance" />
-                    <p>Oracle Always Free Tier – Ampere A1 Compute Instance Overview</p>
+                    <img src="/files/springBootInitialization.png" alt="Application startup view" />
+                    <p>Application startup log used to confirm the service boots correctly.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/springBootInitialization.png" alt="Spring Boot Being Launch From Linux CLI" />
-                    <p>Spring Boot service running on Oracle Cloud instance (CLI view)</p>
+                    <img src="/files/chromeDevTools.png" alt="API response testing" />
+                    <p>Browser tools and test requests helped verify endpoint behavior.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/chromeDevTools.png" alt="Website Using SSL" />
-                    <p>Let’s Encrypt SSL successfully installed and verified for HTTPS access</p>
+                    <img src="/files/finalWebsiteDesktop.png" alt="Project presentation on desktop" />
+                    <p>Desktop presentation view for documenting the project and what it does.</p>
                 </div>
                 <div class="gallery-item">
-                    <img src="/files/githubActionsDeploy.png" alt="Automated Deployment via Github Actions" />
-                    <p>Automated deployment pipeline triggered via GitHub Actions</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="/files/route53Records.png" alt="DNS Records in Route 53 for Domain" />
-                    <p>Amazon Route 53 record set showing active-passive failover setup</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="/files/route53HealthChecks.png" alt="Health Check for Primary Web Server in Route 53" />
-                    <p>DNS-level redundancy configured using Amazon Route 53 failover routing</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="/files/finalWebsiteDesktop.png" alt="Final Web Portfolio with Dark Mode Theming" />
-                    <p>Deployed portfolio with custom UI, routing, and theming enhancements (Displayed on Desktop)
-                    </p>
-                </div>
-                <div class="gallery-item">
-                    <img src="/files/finalWebsiteMobile.png" alt="Final Web Portfolio with Dark Mode Theming" />
-                    <p>Deployed portfolio with custom UI, routing, and theming enhancements (Displayed on Mobile)
-                    </p>
+                    <img src="/files/finalWebsiteMobile.png" alt="Project presentation on mobile" />
+                    <p>Mobile layout check to make sure the portfolio stays readable on smaller screens.</p>
                 </div>
             </div>
             <div class="gallery-controls">

@@ -6,6 +6,10 @@ function toggleMenu(){
     icon.classList.toggle("open");
 }
 
+function showPlaceholderLink(label) {
+    window.alert(label + " link will be added soon.");
+}
+
 // Dark Mode
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeIcon = document.getElementById('dark-mode-icon');
